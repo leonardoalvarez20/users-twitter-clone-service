@@ -11,4 +11,4 @@ def healthcheck():
     """
     Health check end-point
     """
-    return Response(content="OK")
+    return Response(content="Salu2 chmx")
