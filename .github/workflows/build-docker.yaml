@@ -12,25 +12,25 @@ env:
   USER_GH: leonardoalvarez20
 
 jobs:
-      push-store-image:
-        runs-on: ubuntu-latest
+  push-store-image:
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: 'Checkout GitHub Action'
-            uses: actions/checkout@v2
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
 
-          - name: 'Login to GitHub Container Registry'
-            uses: docker/login-action@v1
-            with:
-              registry: ghcr.io
-              username: ${{github.actor}}
-              password: ${{secrets.GITHUB_TOKEN}}
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
 
-          - name: 'Build Inventory Image'
-            env:
-              IMAGE_TAG: ${{ env.TAG }}
-              GHCR_REPOSITORY: ${{ github.event.repository.name }}
-              GHCR_USER: ${{ env.USER_GH }}
-            run: |
-              docker build -f .docker/Dockerfile --tag ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG .
-              docker push ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG
+      - name: 'Build Inventory Image'
+        env:
+          IMAGE_TAG: ${{ env.TAG }}
+          GHCR_REPOSITORY: ${{ github.event.repository.name }}
+          GHCR_USER: ${{ env.USER_GH }}
+        run: |
+          docker build -f .docker/Dockerfile --tag ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG .
+          docker push ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG
