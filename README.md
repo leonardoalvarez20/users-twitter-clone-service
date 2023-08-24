@@ -1,4 +1,4 @@
-# fastapi-template-service
+# users-twitter-clone-service
 
 <p align="center">
     <em>A template for FastAPI applications</em>
