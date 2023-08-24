@@ -20,7 +20,7 @@ from app.utils.exceptions import DeployError
 secure_headers = secure.Secure()
 
 fastapi_app = FastAPI(
-    title="fastapi-template",
+    title="user-twitter-clone-service",
     description="Template for FastAPI projects.",
     version=__version__,
 )

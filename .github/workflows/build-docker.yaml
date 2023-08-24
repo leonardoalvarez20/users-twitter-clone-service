@@ -9,10 +9,9 @@ on:
 
 env:
   TAG: latest
-  USER_GH: leonardoalvarez20
 
 jobs:
-  push-store-image:
+  push-image:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +25,11 @@ jobs:
           username: ${{github.actor}}
           password: ${{secrets.GITHUB_TOKEN}}
 
-      - name: 'Build Inventory Image'
+      - name: 'Build and push Image'
         env:
           IMAGE_TAG: ${{ env.TAG }}
           GHCR_REPOSITORY: ${{ github.event.repository.name }}
-          GHCR_USER: ${{ env.USER_GH }}
+          GHCR_USER: ${{ secrets.GHCR_USER }}
         run: |
           docker build -f .docker/Dockerfile --tag ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG .
           docker push ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG
