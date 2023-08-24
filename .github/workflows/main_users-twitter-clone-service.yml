@@ -10,21 +10,18 @@ on:
       - completed
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    deploy:
-      runs-on: ubuntu-latest
-      needs: build
-      environment:
-        name: 'staging'
-        url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    environment:
+      name: 'staging'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-      steps:
-        - name: Deploy to Azure Web App
-          id: deploy-to-webapp
-          uses: azure/webapps-deploy@v2
-          with:
-            app-name: 'users-twitter-clone-service'
-            slot-name: 'production'
-            publish-profile: ${{ secrets.AzureAppService_PublishProfile_1cecbc8e5a604501a7de1f4cdd2df74e }}
-            images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_90997a15aec84008832a93bceeda2cf9 }}/leonardoalvarez20/users-twitter-clone-service:latest'
+    steps:
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'users-twitter-clone-service'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1cecbc8e5a604501a7de1f4cdd2df74e }}
+          images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_90997a15aec84008832a93bceeda2cf9 }}/leonardoalvarez20/users-twitter-clone-service:latest'
