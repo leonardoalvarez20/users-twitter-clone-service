@@ -36,5 +36,5 @@ jobs:
           GHCR_USER: ${{ secrets.GHCR_USER }}
         with:
           push: true
-          tags: ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG
+          tags: ghcr.io/$GHCR_REPOSITORY:$IMAGE_TAG
           file: /.docker/Dockerfile
