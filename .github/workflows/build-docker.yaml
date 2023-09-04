@@ -28,13 +28,12 @@ jobs:
           username: ${{github.actor}}
           password: ${{secrets.GITHUB_TOKEN}}
 
+       - name: Lowercase the repo name
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Build and push container image to registry
         uses: docker/build-push-action@v4
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-          GHCR_REPOSITORY: ${{ github.event.repository.name }}
-          GHCR_USER: ${{ secrets.GHCR_USER }}
         with:
           push: true
-          tags: ghcr.io/$GHCR_REPOSITORY:$IMAGE_TAG
+          tags: ghcr.io/${{ env.REPO }}:${{ github.sha }}
           file: /.docker/Dockerfile
