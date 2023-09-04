@@ -22,15 +22,13 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
+      - name: Lowercase the repo name
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
-        env:
-          IMAGE_TAG: ${{ github.sha }}
-          GHCR_REPOSITORY: ${{ github.event.repository.name }}
-          GHCR_USER: ${{ secrets.GHCR_USER }}
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZ_PUBLISH_PROFILE }}
-          images: 'ghcr.io/$GHCR_USER/$GHCR_REPOSITORY:$IMAGE_TAG'
+          images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
