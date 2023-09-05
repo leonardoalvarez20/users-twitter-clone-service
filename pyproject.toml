@@ -6,7 +6,7 @@ authors = [ "Leonardo Alvarez <leonardo.alvarez.dev.20@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-fastapi = "^0.85.1"
+fastapi = "^0.103.1"
 SQLAlchemy = "^1.4.42"
 pendulum = "^2.1.2"
 loguru = "^0.6.0"
